@@ -1,5 +1,5 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 bool compFuncFirst(std::pair<int, char> a, std::pair<int, char> b) {
     return (a.first > b.first);
@@ -21,11 +21,9 @@ int main() {
 
     std::sort(std::begin(vec), std::end(vec), compFuncSecond);
 
-    for(auto v: vec) {
+    for (auto v : vec) {
         std::cout << v.first << " " << v.second << "\n";
     }
-
-
 
     return 0;
 }
