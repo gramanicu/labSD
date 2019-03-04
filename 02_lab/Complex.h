@@ -1,8 +1,8 @@
 #ifndef __COMPLEX_H
 #define __COMPLEX_H
 
-#include <iostream>
 #include <math.h>
+#include <iostream>
 
 class Complex {
    public:
@@ -44,15 +44,15 @@ class Complex {
     }
 
     float segment(const Complex& other) {
-        return std::sqrt(std::pow(other.re - this->re,
-                         2) + std::pow(other.im - this->im, 2));
+        return std::sqrt(std::pow(other.re - this->re, 2) +
+                         std::pow(other.im - this->im, 2));
     }
 
     friend std::ostream& operator<<(std::ostream& out, const Complex& complex);
 };
 
 std::ostream& operator<<(std::ostream& out, const Complex& complex) {
-    if(complex.im>=0) {
+    if (complex.im >= 0) {
         out << complex.re << " + " << complex.im << "i\n";
     } else {
         out << complex.re << " - " << std::abs(complex.im) << "i\n";

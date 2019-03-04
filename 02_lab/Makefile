@@ -7,14 +7,16 @@ beauty:
 
 .PHONY:beauty
 
-FLAGS = -Wall -Wextra
+FLAGS = -Wall -Wextra -Wno-unused-parameter -std=c++11 -g
 
 complex: Complex.cpp clean
-
 	g++ -o complex Complex.cpp $(FLAGS)
 
-problema2: 
-	g++ -o problema2 problema2.cpp $(FLAGS)
+cardgame: Cardgame.cpp clean
+	g++ -o cardgame Cardgame.cpp $(FLAGS)
+
+runCard: cardgame
+	./cardgame < cardgame.in > cardgame.out
 
 clean:
 	rm -f complex
