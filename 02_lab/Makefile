@@ -7,7 +7,16 @@ beauty:
 
 .PHONY:beauty
 
+FLAGS = -Wall -Wextra
+
+complex: Complex.cpp clean
+
+	g++ -o complex Complex.cpp $(FLAGS)
+
+problema2: 
+	g++ -o problema2 problema2.cpp $(FLAGS)
+
 clean:
-	rm -f problema1 problema2 problema3
+	rm -f complex
 
 .PHONY:clean
