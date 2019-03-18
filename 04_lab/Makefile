@@ -1,53 +1,31 @@
-# Copyright 2019 Grama Nicolae
+.PHONY: build debug run clean
 
-.PHONY: gitignore check purge clean memory update beauty pack run
-.SILENT: purge update beauty pack clean memory gitignore
-
-# Informatii program
 CC = g++
-CFLAGS = -Wall -Wextra -pedantic -O3
-#FLAGS = -lm
-EXE = lab4
-SRC = $(wildcard *.cpp)
-OBJ = $(SRC:.cpp=.o)
+CFLAGS = -Wall -Wextra -Wno-unused-parameter -std=c++11
 
+SRCS = $(wildcard *.cpp)
+ELFS = $(patsubst %.cpp, %, $(SRCS))
 
-# Compilarea programului
-build: $(OBJ)
-	$(info Compiling code...)
-	@$(CC) -o $(EXE) $^ $(LFLAGS) $(CFLAGS) ||:
-	$(info Compilation successfull)
-	-@rm -f *.o ||:
-	@$(MAKE) -s gitignore ||:
+build: $(ELFS)
 
-# Ruleaza programul
-run: build
-		./$(EXE)
+set_dbg: CFLAGS += -DDEBUG
 
-# Sterge executabilul si fisierele obiect
+debug: set_dbg
+
+set_dbg: build
+
+%: %.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
+run:
+	for ELF in $(ELFS); do \
+    ./$$ELF; \
+  done
+
 clean:
-	rm -f $(EXE) $(OBJ)
-	echo "Deleted the binary and object files"
+	rm -f $(ELFS)
 
-# Face coding-style automat, la standardul google, cu o mica modificare
-# (4 spatii in loc de 2 la alineate)
-beauty:
+beauty: 
 	clang-format -i -style=file *.cpp *.h
 
-# Verifica memoria pentru leak-uri
-MFLAGS = --leak-check=full --show-leak-kinds=all 
-memory:build
-	valgrind $(MFLAGS) ./$(EXE)
-
-# Sterge toate fisierele care nu o sa apara in repository
-purge:
-	rm -f $(EXE) $(OBJ)
-	echo "All files were removed"
-
-# Adauga toate fisierele care nu trebuie sa fie include in repository
-# la .gitignore
-gitignore:
-	@echo "$(EXE)" > .gitignore ||:
-	@echo ".vscode*" >> .gitignore ||:	
-	@find . -executable -type f -not -path "*/.git/*" | cut -c 3- >>.gitignore ||:
-	echo "Updated .gitignore"
+.PHONY:beauty
