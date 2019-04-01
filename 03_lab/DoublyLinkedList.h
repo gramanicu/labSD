@@ -64,11 +64,11 @@ class DoublyLinkedList {
      * @param data Data to be added at the end of the list.
      */
     void addLast(T data) {
-        if(head) {
+        if (head) {
             Node<T> *toAdd = new Node<T>(data);
             toAdd->prev = tail;
             toAdd->next = nullptr;
-            tail = toAdd; 
+            tail = toAdd;
         } else {
             Node<T> *toAdd = new Node<T>(data);
             head = toAdd;
@@ -138,8 +138,10 @@ class DoublyLinkedList {
      * @return True if the list contains no elements, False otherwise.
      */
     bool isEmpty() {
-        if (numElements) return true;
-        else return false;
+        if (numElements)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -147,9 +149,7 @@ class DoublyLinkedList {
      *
      * @return The number of nodes stored in the list.
      */
-    int get_numElements() {
-        return numElements;
-    }
+    int get_numElements() { return numElements; }
 
     // Getters & Setters
     Node<T> *getHead() { return head; }

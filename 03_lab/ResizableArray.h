@@ -10,8 +10,8 @@
 #define __RESIZABLEARRAY_H__
 
 #include <assert.h>
-#include <ostream>
 #include <memory.h>
+#include <ostream>
 
 template <typename T>
 class ResizableArray {
@@ -62,10 +62,10 @@ class ResizableArray {
      * @param element Element to be added at the end of the array.
      */
     void addLast(T element) {
-        if(numElements+1>maxCapacity) {
+        if (numElements + 1 > maxCapacity) {
             maxCapacity = maxCapacity * expandFactor;
             T* aux = new T[maxCapacity];
-            for(int i=0; i<numElements; i++) {
+            for (int i = 0; i < numElements; i++) {
                 aux[i] = data[i];
             }
             delete[] data;
@@ -80,18 +80,18 @@ class ResizableArray {
      * @param element Elment to be added at the beginning of the array.
      */
     void addFirst(T element) {
-        if(numElements+1>maxCapacity) {
+        if (numElements + 1 > maxCapacity) {
             maxCapacity = maxCapacity * expandFactor;
             T* aux = new T[maxCapacity];
-            for(int i=0; i<numElements; i++) {
+            for (int i = 0; i < numElements; i++) {
                 aux[i] = data[i];
             }
             delete[] data;
             data = aux;
         }
-        if(numElements) {
-            for(int i=numElements; i>0; i--) {
-                data[i] = data[i-1];
+        if (numElements) {
+            for (int i = numElements; i > 0; i--) {
+                data[i] = data[i - 1];
             }
         }
         data[0] = element;
@@ -104,9 +104,9 @@ class ResizableArray {
      * @return Value of the last element stored in the array.
      */
     T removeLast() {
-        if(numElements!=0) {
+        if (numElements != 0) {
             data[numElements] = 0;
-            numElements = numElements-1;
+            numElements = numElements - 1;
         }
         return 0;
     }
@@ -117,12 +117,12 @@ class ResizableArray {
      * @return Value of the first element stored in the array.
      */
     T removeFirst() {
-        if(numElements) {
+        if (numElements) {
             T val = data[0];
-            for(int i=1; i<numElements; i++) {
-                data[i-1] = data[i];
+            for (int i = 1; i < numElements; i++) {
+                data[i - 1] = data[i];
             }
-            numElements = numElements-1;
+            numElements = numElements - 1;
             return val;
         }
         return 0;
@@ -135,7 +135,7 @@ class ResizableArray {
      * @param element New value of the element.
      */
     void setElement(int index, T element) {
-        if(index>=0 && index<numElements) {
+        if (index >= 0 && index < numElements) {
             data[index] = element;
         }
     }
@@ -147,7 +147,7 @@ class ResizableArray {
      * @return Value of the element on the specified position.
      */
     T getElement(int index) {
-        if(index>=0 && index<numElements) {
+        if (index >= 0 && index < numElements) {
             return data[index];
         }
         return 0;
@@ -159,8 +159,10 @@ class ResizableArray {
      * @return True if the array contains no elements, False otherwise.
      */
     bool isEmpty() {
-        if(numElements) return true;
-        else return false;
+        if (numElements)
+            return true;
+        else
+            return false;
     }
 
     /**

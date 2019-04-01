@@ -1,4 +1,4 @@
-# Copyright 2018 Grama Nicolae
+# Copyright 2019 Grama Nicolae
 
 # face coding-style automat, la standardul google, cu o mica modificare
 # (4 spatii in loc de 2 la alineate)
