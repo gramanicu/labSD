@@ -1,29 +1,26 @@
-# Copyright 2019 Grama Nicolae
-
-.PHONY: clean gitignore beauty
+.PHONY: build debug run clean
 
 CC = g++
-CFLAGS = -Wall -Wextra -pedantic -O3 -Wno-unused-result -g
-EXE = grafuri
-SRC = $(wildcard *.cpp)
-OBJ = $(SRC:.c=.o)
+CFLAGS = -Wall -Wextra -Wno-unused-parameter -std=c++17 -g
 
-# compilarea programului
-build: $(OBJ)
-	$(CC) -o $(EXE) $^ $(CFLAGS)
-	rm -f *.o
-	make gitignore
+SRCS = $(wildcard *.cpp)
+ELFS = $(patsubst %.cpp, %, $(SRCS))
 
-run: build	
-	./$(EXE)
+build: $(ELFS)
 
-clean: 
-	rm -f *.o
+set_dbg: CFLAGS += -DDEBUG
 
-gitignore:
-	find . -executable -type f -not -path "*/.git/*" | cut -c 3- >.gitignore
+debug: set_dbg
 
-beauty: 
-	clang-format -i -style=file */*.cpp */*.h
+set_dbg: build
 
-.PHONY:beauty
+%: %.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
+run:
+	for ELF in $(ELFS); do \
+    ./$$ELF; \
+  done
+
+clean:
+	rm -f $(ELFS)
