@@ -2,6 +2,7 @@
 #define __BINARYTREE_H__
 
 #include <vector>
+#include <queue>
 
 template <typename T>
 class BinaryTreeNode {
@@ -11,36 +12,36 @@ private:
 	BinaryTreeNode<T> *rightChild;
 
 public:
-	BinaryTreeNode(T data) {
-		// TODO 1
-	}
+	BinaryTreeNode(T data): data(data), leftChild(nullptr), rightChild(nullptr) {};
 
 	~BinaryTreeNode() {
-		// TODO 2
+		/*
+		delete leftChild;
+		delete rightChild;*/
 	}
 
 	void setData(T data) {
-		// TODO 3
-	}
+		this->data = data;
+	};
 
 	T getData() {
-		// TODO 4
+		return data;
 	}
 
 	void setLeftChild(T data) {
-		// TODO 5
+		leftChild = new BinaryTreeNode(data);
 	}
 
 	BinaryTreeNode* getLeftChild() {
-		// TODO 6
+		return leftChild;
 	}
 
 	void setRightChild(T data) {
-		// TODO 7
+		rightChild = new BinaryTreeNode(data);
 	}
 
 	BinaryTreeNode* getRightChild() {
-		// TODO 8
+		return rightChild;
 	}
 };
 
@@ -48,22 +49,60 @@ template <typename T>
 class BinaryTree {
 private:
 	int size;
-	BinaryTreeNode<T> *root;
 public:
-	BinaryTree() {
-		// TODO 9
-	}
+	BinaryTreeNode<T> *root;
+	BinaryTree(): size(0), root(nullptr) {};
 
 	~BinaryTree() {
-		// TODO 10
+		//delete root;
 	}
 
 	void insert(T data) {
-		// TODO 11: Insert node at the first empty position
+		if(size == 0) {
+			root = new BinaryTreeNode<T>(data);
+			root->setRightChild(T());
+			root->setLeftChild(T());
+			size++;
+		} else {
+			std::queue<BinaryTreeNode<T>*> q;
+			q.push(root->getLeftChild());
+			q.push(root->getRightChild());
+
+			while(!q.empty()) {
+				BinaryTreeNode<T> *curr = q.front();
+				if(curr->getData() == T()) {
+					curr->setData(data);
+					curr->setLeftChild(T());
+					curr->setRightChild(T());
+					size++;
+					return;
+				} else {
+					q.pop();
+					q.push(curr->getLeftChild());
+					q.push(curr->getRightChild());
+				}
+				//delete curr;
+			}
+		}
 	}
 
 	std::vector<T> traversal() {
-		// TODO 12
+		std::vector<T> t;
+		std::queue<BinaryTreeNode<T>*> q;
+		q.push(root);
+		bool first = true;
+
+		while(!q.empty()) {
+			BinaryTreeNode<T> *curr = q.front();
+			if(curr->getData() != T() || first) {
+				first = false;
+				t.push_back(curr->getData());
+				q.push(curr->getLeftChild());
+				q.push(curr->getRightChild());
+			}
+			q.pop();
+		}
+		return t;
 	}
 };
 
