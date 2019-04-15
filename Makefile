@@ -8,10 +8,10 @@ main:
 
 excludeA: 
 	find . -executable -type f -not -path "*/.git/*" | cut -c 3- >>.gitignore
-	.vscode >> .gitignore
+	echo ".vscode" >> .gitignore
 excludeO:
 	find . -executable -type f -not -path "*/.git/*" | cut -c 3- >.gitignore
-	.vscode >> .gitignore
+	echo ".vscode" >> .gitignore
 
 .PHONY: excludeA excludeO
 

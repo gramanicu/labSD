@@ -69,10 +69,32 @@ stack<int> Graph::minPath(int source, int dest) {
 	vector<int> parent(numNodes);
 	
 	/* TODO 2 Initializations */
-	
-	/*
-		TODO 2 Perform BFS from source, keeping track of distance and parent
-	*/
+	for(int i=0; i<numNodes; i++) {
+		visited.push_back(false);
+		dist.push_back(100000);
+		parent.push_back(-1);
+	}
+
+	q.push(source);
+	visited[source] = true;
+	dist[source] = 0;
+	while(q.size()) {
+		for(auto &i : neigh[q.front()]) {
+			if(visited[i]==false) {
+				visited[i] = true;
+				q.push(i);
+
+				dist[i] = dist[q.front()] + 1;
+				parent[i] = q.front();
+			} else {
+				if(dist[parent[i]]>dist[q.front()]) {
+					dist[i] = dist[q.front()] + 1;
+					parent[i] = q.front();
+				}
+			}
+		}
+		q.pop();
+	}
 
 	stack<int> path;
 	// There is no path from source to destination
@@ -82,6 +104,8 @@ stack<int> Graph::minPath(int source, int dest) {
 		TODO 2 Start from destination, node becomes its parent and gets
 		pushed onto the stack while source is not reached
 	*/
+	
+	path.push(1);
 
 	return path;
 }
