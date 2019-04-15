@@ -102,40 +102,6 @@ int main() {
 	}
 	sameLevel = checkSameLevelLeaves(bt);
 	std::cout << sameLevel << '\n';
-
-	// Check Ex3:isBalanced
-	freopen("Out/Lab8/balanced.out", "w", stdout);
-	bool balanced = isBalanced(bt);
-	std::cout << balanced << '\n';
-	bt.insert(0);
-	std::cout << balanced << '\n';
-
-	// Check Ex3:computeTreeHeight
-	freopen("Out/Lab8/height.out", "w", stdout);
-	int height = computeTreeHeight(bt);
-	std::cout << height << '\n';
-	for (int i = 0; i < 10; ++i) {
-		bt.insert(i);
-	}
-	height = computeTreeHeight(bt);
-	std::cout << height << '\n';
-
-	// Check Ex3:checkChildrenSum
-	freopen("Out/Lab8/childrensum.out", "w", stdout);
-	bool check = checkChildrenSum(bt);
-	std::cout << check << '\n';
 	
-	BinaryTree<int> bt1;
-	bt1.insert(10);
-	bt1.insert(5);
-	bt1.insert(5);
-	/*for (int i = 0; i < 10; ++i) {
-		for (int j = 0; j < pow(2, i); ++j) {
-			bt1.insert(pow(2, 10 - i));
-		}
-	}*/
-
-	check = checkChildrenSum(bt1);
-	std::cout << check << '\n';
 	return 0;
 }

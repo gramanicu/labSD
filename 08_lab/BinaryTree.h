@@ -15,9 +15,8 @@ public:
 	BinaryTreeNode(T data): data(data), leftChild(nullptr), rightChild(nullptr) {};
 
 	~BinaryTreeNode() {
-		/*
 		delete leftChild;
-		delete rightChild;*/
+		delete rightChild;
 	}
 
 	void setData(T data) {
@@ -54,8 +53,7 @@ public:
 	BinaryTree(): size(0), root(nullptr) {};
 
 	~BinaryTree() {
-		//delete root;
-	}
+	};
 
 	void insert(T data) {
 		if(size == 0) {
@@ -81,7 +79,6 @@ public:
 					q.push(curr->getLeftChild());
 					q.push(curr->getRightChild());
 				}
-				//delete curr;
 			}
 		}
 	}
